@@ -61,7 +61,8 @@ public class Homework {
         String str1 = "12345678";
         String str2 = Integer.valueOf(str1).toString();
         // твой код: start
-        System.out.println(str1.equals(str2));
+        boolean result = str1.equals(str2);
+        System.out.println(result);
         // твой код: end
     }
 
@@ -72,7 +73,8 @@ public class Homework {
         // твой код: start
         String str1 = "12345678";
         String str2 = Integer.valueOf(str1).toString();
-        System.out.println(str1.equalsIgnoreCase(str2));
+        boolean result = str1.equalsIgnoreCase(str2);
+        System.out.println(result);
         // твой код: end
     }
 
@@ -83,7 +85,8 @@ public class Homework {
         // твой код: start
         String str1 = "12345678";
         String str2 = Integer.valueOf(str1).toString();
-        System.out.println(str1.compareTo(str2));
+        boolean result = str1.compareTo(str2) == 0;
+        System.out.println(result);
         // твой код: end
     }
 
@@ -94,7 +97,9 @@ public class Homework {
         // твой код: start
         String str1 = "12345678";
         String str2 = Integer.valueOf(str1).toString();
-        System.out.println(str1.compareToIgnoreCase(str2));
+        if (str1.compareTo(str2) == 0) {
+            System.out.println(" == ");
+        } else System.out.println(" != ");
         // твой код: end
     }
 
@@ -104,8 +109,10 @@ public class Homework {
     public void task8() {
         String str = "qwerty";
         // твой код: start
-        System.out.println(str.toUpperCase());
-        System.out.println(str.toLowerCase());
+        str = str.toUpperCase();
+        System.out.println(str);
+        str = str.toLowerCase();
+        System.out.println(str);
         // твой код: end
     }
 
@@ -117,7 +124,8 @@ public class Homework {
     public void task9() {
         // твой код: start
         String str = "sadovnikov";
-        System.out.println(str.substring(0, 1).toUpperCase() + str.substring(1));
+        str = str.substring(0, 1).toUpperCase() + str.substring(1);
+        System.out.println(str);
         // твой код: end
     }
 
@@ -128,8 +136,12 @@ public class Homework {
     public void task10() {
         String str = "  str  ";
         // твой код: start
-        str = str.trim();
-        System.out.println(str.indexOf(" "));
+        if (str.startsWith(" ") || str.endsWith(" ")) {
+            str = str.trim();
+        }
+        System.out.println(str);
+        boolean hasSpace = str.startsWith(" ") || str.endsWith(" ");
+        System.out.println(hasSpace);
         // твой код: end
     }
 
@@ -140,8 +152,11 @@ public class Homework {
     public void task11() {
         String str = " тебе нужно получить часть строки ";
         // твой код: start
-        str = str.replace(" ", "");
-        System.out.println(str.contains(" ") ? "есть пробел" : "нет пробелов");
+        if (str.contains(" ")) {
+            str = str.replace(" ", "");
+        }
+        String result = str.contains(" ") ? "есть пробел" : "нет пробелов";
+        System.out.println(result);
         // твой код: end
     }
 
@@ -167,8 +182,8 @@ public class Homework {
         String str = "тебе нужно получить часть строки";
         // твой код: start
         str = str.substring(5);
+        str = str.substring(5, 10);
         System.out.println(str);
-        str = str.substring(0, 5);
         System.out.println(str);
         // твой код: end
     }
@@ -183,7 +198,8 @@ public class Homework {
         char ch = 'о';
         String str = "в первом случае, начиная от 6го символа";
         // твой код: start
-        System.out.println(str.substring(str.indexOf("о"), str.lastIndexOf("о") + 1));
+        str = str.substring(str.indexOf(ch), str.lastIndexOf(ch) + 1);
+        System.out.println(str);
         // твой код: end
     }
 
@@ -195,7 +211,8 @@ public class Homework {
     public void task15() {
         String str = "используй ее так, чтобы обрезать строку начиная с первого вхождения этого символа и до последнего вхождения";
         // твой код: start
-        System.out.println(str.length() - str.replace("о", "").length());
+        int result = str.length() - str.replace("о", "").length();
+        System.out.println(result);
         // твой код: end
     }
 
@@ -207,11 +224,8 @@ public class Homework {
         String str = "используй ее так, чтобы обрезать строку начиная с первого вхождения этого символа и до последнего вхождения";
         // твой код: start
         int count = 0;
-        char[] array = str.toCharArray();
-        for (char c : array) {
-            if (c == 'о') {
-                count++;
-            }
+        for (int i = 0; i < str.length(); i++) {
+            count = str.charAt(i) == 'o' ? ++count : count;
         }
         System.out.println(count);
         // твой код: end
@@ -224,9 +238,14 @@ public class Homework {
     public void task17() {
         String str = "используй ее так, чтобы обрезать строку начиная с первого вхождения этого символа и до последнего вхождения";
         // твой код: start
-        str = str.substring(str.indexOf("о"), str.lastIndexOf("о") + 1);
-        String[] array = str.split("о");
-        System.out.println(array.length);
+        char[] array = str.toCharArray();
+        int count = 0;
+        for (char ch : array) {
+            if (ch == 'o') {
+                count++;
+            }
+            System.out.println(count);
+        }
         // твой код: end
     }
 
@@ -237,14 +256,13 @@ public class Homework {
     public void task18() {
         String str = "я самый лучший самый лучший я";
         // твой код: start
-        StringBuffer sb = new StringBuffer();
-        for (String s : str.split(" ")) {
-            sb.append(Character.toUpperCase(s.charAt(0)));
-            if (s.length() > 1) {
-                sb.append(s.substring(1).toLowerCase());
-            }
+        String[] text = str.split(" ");
+        String result = "";
+        for (String value : text) {
+            result += (value.substring(0, 1).toUpperCase() + value.substring(1));
         }
-        System.out.println(sb);
+        result = (result.substring(0, 1).toLowerCase() + result.substring(1));
+        System.out.println(result);
         // твой код: end
     }
 
@@ -304,11 +322,11 @@ public class Homework {
     public void task21() {
         String str = "Гарри Гаррисон - Специалист по этике.";
         // твой код: start
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-            stringBuffer.append(i % 2 == 0 ? str.substring(i, i + 1).toUpperCase() : str.substring(i, i + 1).toLowerCase());
+            stringBuilder.append(i % 2 == 0 ? str.substring(i, i + 1).toUpperCase() : str.substring(i, i + 1).toLowerCase());
         }
-        System.out.println(stringBuffer);
+        System.out.println(stringBuilder);
         // твой код: end
     }
 
@@ -319,8 +337,9 @@ public class Homework {
     public void task22() {
         String str = "Гарри Гаррисон - Специалист по этике.";
         // твой код: start
-        for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.substring(0, str.length() - i));
+        while (str.length() > 0) {
+            str = str.substring(0, str.length() - 1);
+            System.out.println(str);
         }
         // твой код: end
     }
@@ -332,8 +351,9 @@ public class Homework {
     public void task23() {
         String str = "Гарри Гаррисон - Специалист по этике.";
         // твой код: start
-        for (int i = 0; i < str.length(); i++) {//
-            System.out.println(str.substring(i));
+        while (str.length() > 0) {
+            str = str.substring(1);
+            System.out.println(str);
         }
         // твой код: end
     }
@@ -345,8 +365,9 @@ public class Homework {
     public void task24() {
         String str = "Гарри Гаррисон - Специалист по этике.";
         // твой код: start
-        for (int i = 0; i <= str.length() / 2; i++) {
-            System.out.println(str.substring(i, (str.length() - i)));
+        while (str.length() > 1) {
+            str = str.substring(1, str.length() - 1);
+            System.out.println(str);
         }
         // твой код: end
     }
@@ -382,17 +403,16 @@ public class Homework {
      * попробуй выяснить, есть ли в ней символы чисел
      */
     public void task26() {
-
         // твой код: start
-
         String str = "abc89de1f";
+        boolean hasDigit = false;
         for (char c : str.toCharArray()) {
             if (Character.isDigit(c)) {
-                System.out.println("Есть число");
+                hasDigit = true;
                 break;
             }
         }
-
+        System.out.println("Есть число");
         // твой код: end
     }
 
@@ -403,12 +423,14 @@ public class Homework {
     public void task27() {
         // твой код: start
         String str = "54646.464";
+        boolean hasOther = false;
         for (char c : str.toCharArray()) {
             if (!Character.isDigit(c)) {
-                System.out.println("Есть другие символы кроме чисел");
+                hasOther = true;
                 break;
             }
         }
+        System.out.println("Есть другие символы кроме чисел");
         // твой код: end
     }
 
@@ -417,10 +439,22 @@ public class Homework {
      * попробуй выяснить, является ли содержимое строки числом (примеры: -1, 0, 1, 23.45)
      */
     public void task28() {
-        String str = "1.7";
-        str.replace(".", "");
+        String str = "-1.25";
+        boolean result = true;
         str = str.startsWith("-") ? str.substring(1) : str;
-        System.out.println(Character.isDigit(str.charAt(0)) ? "Число" : "Не число");
+
+//        if (str.indexOf("." != str.lastIndexOf(".")){
+//            return false;
+//        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (!Character.isDigit(ch) && ch != '.'){
+                result = false;
+                break;
+            }
+        }
+        System.out.println(result);
     }
 
     // твой код: end
@@ -447,8 +481,9 @@ public class Homework {
     public void task30() {
         String str = "Гарри Гаррисон Специалист по этике";
         // твой код: start
-        String[] array = str.split(" ");
-        System.out.println(Arrays.toString(array));
+        for(String s : str.split(" ")){
+            System.out.println(s);
+        }
         // твой код: end
     }
 
@@ -574,11 +609,15 @@ public class Homework {
         // твой код: start
         char[] ch = str.toCharArray();
         Arrays.sort(ch);
-        System.out.println(ch);
-        str = str.substring(0, str.length() - 1);
-        char[] ch2 = str.toCharArray();
-        Arrays.sort(ch2);
-        System.out.println(ch2);
+        System.out.println(Arrays.toString(ch));
+        char temp;
+        for (int i = 0, j = ch.length - 1 ; i < j; i++, j--) {
+            temp = ch[i];
+            ch[i] = ch[j];
+            ch[j] = temp;
+        }
+        System.out.println(Arrays.toString(ch));
+
         // твой код: end
     }
 
@@ -590,23 +629,19 @@ public class Homework {
      */
     public void task37() {
         // твой код: start
-        int[] array = new int[10000];
-        Random rnd = new Random();
-        int check = 0;
-        StringBuilder[] stringBuilder = new StringBuilder[10000];
+        String[] array = new String[9900];
         for (int i = 0; i < array.length; i++) {
-            array[i] = rnd.nextInt(10000 - 100 + 1) + 100;
+            array[i] = Integer.toString(i +100);
         }
-
-        for (int digit : array) {
-            String str = new StringBuilder(Integer.toString(digit)).reverse().toString();
-            if (String.valueOf(digit).equals(str)) {
-                check++;
+        int count = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            stringBuilder.setLength(0);
+            if (array[i].equals(stringBuilder.append(array[i]).reverse().toString())){
+               count ++;
             }
         }
-        System.out.println(Arrays.toString(array));
-        System.out.println(check);
-
+        System.out.println(count);
         // твой код: end
     }
 
